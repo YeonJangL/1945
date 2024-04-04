@@ -5,6 +5,7 @@ using UnityEngine;
 public class PBullet : MonoBehaviour
 {
     public float Speed = 4.0f;
+    public int Attack = 10;
 
     // Update is called once per frame
     void Update()
@@ -19,5 +20,27 @@ public class PBullet : MonoBehaviour
     {
         // 자기 자신 지우기
         Destroy(gameObject);
+    }
+
+    // 충돌 처리
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            // 아이템 생성하고 전달
+            //collision.gameObject.GetComponent<Monster>().ItemDrop();
+
+            // 몬서터 삭제
+            //Destroy(collision.gameObject);
+
+            collision.gameObject.GetComponent<Monster>().Damage(Attack);
+
+            // 대미지 주기
+
+            // 이펙트 생성
+
+            // 미사일 삭제
+            Destroy(gameObject);
+        }
     }
 }

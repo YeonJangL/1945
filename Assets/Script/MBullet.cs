@@ -24,5 +24,14 @@ public class MBullet : MonoBehaviour
     }
 
     // 충돌처리
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            // 플레이어 지우기
 
+            // 미사일 지우기
+            Destroy(gameObject);
+        }
+    }
 }

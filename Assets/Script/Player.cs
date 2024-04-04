@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     Animator ani; // 애니메이터를 가져올 변수
 
     public Transform pos = null;
-    public GameObject bullet;
+    //public GameObject bullet; // 미사일 갯수 여러개
+    public List<GameObject> bullet = new List<GameObject>();
+
+    public int power = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +58,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // 프리팹 위치 방향 생성
-            Instantiate(bullet, pos.position, Quaternion.identity);
+            Instantiate(bullet[power], pos.position, Quaternion.identity);
         }
 
         transform.Translate(moveX, moveY, 0);
@@ -66,5 +69,20 @@ public class Player : MonoBehaviour
         viewPos.y = Mathf.Clamp01(viewPos.y); //y값을 0이상, 1이하로 제한한다.
         Vector3 worldPos = Camera.main.ViewportToWorldPoint(viewPos);//다시월드좌표로 변환
         transform.position = worldPos; //좌표를 적용한다.
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Item")
+        {
+            power += 1;
+            if (power >= 3)
+            {
+                power = 3;
+            }
+
+            // 아이템 먹은 처리
+            Destroy(collision.gameObject);
+        }
     }
 }
