@@ -14,8 +14,19 @@ public class Spawn : MonoBehaviour
     [SerializeField]
     private GameObject monster2;
 
+    [SerializeField]
+    private GameObject Boss;
+
     bool swi = true;
     bool swi2 = true;
+
+    [SerializeField]
+    GameObject textBossWarning; // 보스 등장 텍스트 오브젝트
+
+    private void Awake()
+    {
+        textBossWarning.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +85,11 @@ public class Spawn : MonoBehaviour
         StartCoroutine("RandomSpawn2");
 
         // 보스 몬스터
+        textBossWarning.SetActive(true);
+
+        Vector3 pos = new Vector3(0, 2.89f, 0);
+
+        Instantiate(Boss, pos, Quaternion.identity);
     }
 
     // Update is called once per frame

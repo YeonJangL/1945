@@ -6,6 +6,7 @@ public class PBullet : MonoBehaviour
 {
     public float Speed = 4.0f;
     public int Attack = 10;
+    public GameObject effect;
 
     // Update is called once per frame
     void Update()
@@ -38,6 +39,20 @@ public class PBullet : MonoBehaviour
             // 대미지 주기
 
             // 이펙트 생성
+            GameObject go = Instantiate(effect, transform.position, Quaternion.identity);
+            // 1초 뒤에 지우기
+            Destroy(go, 1);
+
+            // 미사일 삭제
+            Destroy(gameObject);
+        }
+
+        if (collision.CompareTag("Boss"))
+        {
+            // 이펙트 생성
+            GameObject go = Instantiate(effect, transform.position, Quaternion.identity);
+            // 1초 뒤에 지우기
+            Destroy(go, 1);
 
             // 미사일 삭제
             Destroy(gameObject);
